@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request the Itinerary</title>
+<meta name="description" content="Four details, then a telephone call from a person. The full five-day itinerary, the medical intake questions and a written quote.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="style.css">
+<style>
+  /* This page is calmer than the landing page: one column, more air, water. */
+  .calm{
+    background:
+      linear-gradient(180deg,var(--ground) 0%,var(--mint) 46%,var(--mint-deep) 100%);
+    min-height:100%;
+  }
+  .waterband{
+    position:relative;height:clamp(150px,26vw,250px);overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .waterband img{width:100%;height:100%;object-fit:cover;object-position:center 62%}
+  .waterband::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(234,245,243,0) 35%,var(--ground) 100%);
+  }
+  :root[data-theme="dark"] .waterband::after,
+  :root:not([data-theme="light"]) .waterband::after{
+    background:linear-gradient(180deg,rgba(6,23,27,.25) 30%,var(--ground) 100%);
+  }
+  .intro{text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+  .intro .eyebrow{justify-content:center}
+  .intro .eyebrow::after,.intro .eyebrow::before{content:"";flex:0 0 34px;height:1px;background:var(--gold-pale)}
+  .backlink{
+    display:inline-flex;align-items:center;gap:8px;font-size:.92rem;font-weight:600;
+    text-decoration:none;color:var(--ink-soft);min-height:44px;
+  }
+  .backlink:hover{color:var(--teal)}
+  .steps{
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:0;padding:0;list-style:none;
+    font-family:"IBM Plex Mono",monospace;font-size:.73rem;letter-spacing:.11em;text-transform:uppercase;
+  }
+  .steps li{color:var(--ink-soft);display:flex;align-items:center;gap:10px}
+  .steps li::after{content:"";width:16px;height:1px;background:var(--gold-pale)}
+  .steps li:last-child::after{display:none}
+  .steps li.now{color:var(--gold);font-weight:600}
+
+  /* ── click-to-play film ───────────────────────────────────────────
+     A facade, not a live embed: YouTube is not contacted and no cookie
+     is set until the viewer actually presses play.                    */
+  .film{
+    position:relative;aspect-ratio:16/9;width:100%;border-radius:var(--r);
+    overflow:hidden;border:1px solid #14545f;background:#02191f;box-shadow:var(--shadow-l);
+  }
+  .film iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .film-btn{
+    position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;cursor:pointer;
+    background:none;display:block;
+  }
+  .film-btn img{width:100%;height:100%;object-fit:cover;filter:saturate(.92) brightness(.72)}
+  .film-btn::after{
+    content:"";position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;
+    border-radius:999px;background:rgba(255,255,255,.94);
+    box-shadow:0 10px 30px -8px rgba(0,0,0,.6);
+    transition:transform .16s ease;
+  }
+  .film-btn .tri{
+    position:absolute;left:50%;top:50%;margin:-11px 0 0 -6px;z-index:2;
+    width:0;height:0;border-left:19px solid #08414c;
+    border-top:11px solid transparent;border-bottom:11px solid transparent;
+  }
+  .film-btn:hover::after{transform:scale(1.06)}
+  .film-cap{
+    position:absolute;left:0;right:0;bottom:0;z-index:2;pointer-events:none;
+    padding:38px 18px 15px;
+    background:linear-gradient(180deg,rgba(2,25,31,0),rgba(2,25,31,.9));
+    font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.13em;
+    text-transform:uppercase;color:#cfe6e5;
+  }
+</style>
+</head>
+<body class="calm">
+
+<header class="topbar">
+  <div class="wrap wrap-wide">
+    <a href="index.html" style="display:flex"><img src="assets/logo-lockup.png" alt="META Esthetic International and KIN Rehabilitation — back to the main page" width="1200" height="475"></a>
+    <a class="backlink" href="index.html">&larr; Back</a>
+  </div>
+</header>
+
+<div class="waterband">
+  <img src="assets/kin-rooftop-pool.jpg" alt="The rooftop hydrotherapy pool at Kin Origin, Bangkok" width="1040" height="693">
+</div>
+
+<main>
+<section style="padding-top:clamp(26px,5vw,42px)">
+  <div class="wrap stack">
+
+    <div class="intro">
+      <p class="eyebrow">Step two of three</p>
+      <h1 style="font-size:clamp(1.9rem,6.4vw,2.7rem)">Ask for the itinerary.</h1>
+      <p class="lede" style="max-width:34em">Four details. Then a person telephones you, in your own morning, and talks you through the five days. Nothing is booked on that call and no deposit is taken.</p>
+      <ul class="steps">
+        <li class="now">Your details</li>
+        <li>A phone call</li>
+        <li>Written quote</li>
+      </ul>
+    </div>
+
+    <div class="formcard">
+      <form id="lead" novalidate>
+        <div class="field">
+          <label for="first">First name</label>
+          <input id="first" name="first" type="text" autocomplete="given-name" required>
+          <p class="err" id="e-first" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="last">Surname</label>
+          <input id="last" name="last" type="text" autocomplete="family-name" required>
+          <p class="err" id="e-last" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="phone">UK mobile number<span class="hint">So we can call you. A UK number, please.</span></label>
+          <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07700 900123" required>
+          <p class="err" id="e-phone" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="email">Email address<span class="hint">The itinerary goes here.</span></label>
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.co.uk" required>
+          <p class="err" id="e-email" role="alert"></p>
+        </div>
+
+        <hr class="rule" style="margin:26px 0 22px">
+
+        <div class="field">
+          <label for="when">Roughly when were you thinking?<span class="hint">Optional</span></label>
+          <select id="when" name="when">
+            <option value="">Not sure yet</option>
+            <option>Within 3 months</option>
+            <option>3–6 months</option>
+            <option>6–12 months</option>
+            <option>Just researching for now</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="party">Travelling alone or with someone?<span class="hint">Optional</span></label>
+          <select id="party" name="party">
+            <option value="">Not decided</option>
+            <option>On my own</option>
+            <option>With my partner — they are not doing the programme</option>
+            <option>With my partner — quote for two programmes</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="room">Would you like us to book your hotel?<span class="hint">Optional. At cost, no commission added.</span></label>
+          <select id="room" name="room">
+            <option value="">No thanks, I'll sort my own</option>
+            <option>Yes — mid-range, around £70–£120 a night</option>
+            <option>Yes — five-star</option>
+            <option>Tell me the options first</option>
+          </select>
+        </div>
+
+        <label class="consent" for="consent">
+          <input id="consent" name="consent" type="checkbox" required>
+          <span>I agree to META Esthetic International contacting me by telephone and email about this programme. I can ask you to stop at any time. <a href="index.html#privacy">How my details are used</a>.</span>
+        </label>
+        <p class="err" id="e-consent" role="alert" style="margin:-12px 0 16px"></p>
+
+        <button class="btn" type="submit" id="submit">Send my details &rarr;</button>
+        <p class="formnote">No deposit. No obligation. One telephone call, at a UK-friendly hour.</p>
+      </form>
+
+      <div class="thanks" id="thanks" hidden>
+        <h3>Got it — thank you.</h3>
+        <p>Someone will telephone you on the number you gave, in your morning. The written itinerary is on its way to your inbox.</p>
+        <p class="src">If nothing arrives within two working days, email <a href="mailto:metaaesthetictourism@gmail.com">metaaesthetictourism@gmail.com</a> and we will find it.</p>
+        <a class="btn btn-quiet" href="index.html" style="margin-top:8px">Back to the programme</a>
+      </div>
+    </div>
+
+    <ul class="reassure">
+      <li><b>A person, not a sequence</b>One telephone call from Bangkok, timed for your morning.</li>
+      <li><b>A doctor reads it first</b>Every enquiry is reviewed before anything is confirmed.</li>
+      <li><b>Your details stay here</b>Used to contact you about this programme. Nothing else, nobody else.</li>
+    </ul>
+
+  </div>
+</section>
+</main>
+
+<!-- ═══ THE FILM — credibility, below the form ═══════════════════════ -->
+<section class="b-deep" id="inside">
+  <div class="wrap stack">
+    <p class="eyebrow">While you wait for our call</p>
+    <h2>The building, filmed by the people who run it.</h2>
+    <p class="lede">Nine minutes inside Kin Origin — the wards, the pool, the chambers, the staff. Their own camera, their own channel.</p>
+
+    <div class="film" id="film">
+      <button class="film-btn" type="button" id="filmBtn" aria-label="Play the KIN facility film on YouTube">
+        <img src="assets/kin-reception.jpg" alt="" width="1040" height="693">
+        <span class="tri" aria-hidden="true"></span>
+        <span class="film-cap">KIN Rehabilitation &amp; Homecare · official channel · in Thai</span>
+      </button>
+    </div>
+
+    <p>A word about what you are about to watch. <strong>This film was not made for you.</strong> It is in Thai, it has no subtitles, and it is addressed to Thai families choosing a rehabilitation hospital for a parent after a stroke — which is the work KIN does every ordinary week of the year.</p>
+    <p>We are showing it to you anyway, unedited, because that is the honest proof. <strong>The wards are real wards. The hyperbaric chamber is the one you would lie in. The nurses are the nurses.</strong> A hospital that spends its days on serious neurological rehabilitation is not a wellness brand that bought a red light panel — and you can see that in ninety seconds without understanding a word.</p>
+    <p class="src">KIN Rehabilitation &amp; Homecare on YouTube. Nothing is sent to YouTube until you press play. Your five-day programme is preventative and restorative care — it is not rehabilitation treatment, and nothing in this film is an offer of treatment for any condition.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h3>META Esthetic International Co., Ltd</h3>
+      <p>In partnership with KIN — Kin Origin Rehab Center, Sukhumvit 107, Bangkok.<br>
+      Telephone <a href="tel:+6620872785">+66 2 087 2785</a> · <a href="mailto:metaaesthetictourism@gmail.com">metaaesthetictourism@gmail.com</a></p>
+    </div>
+    <p class="fineprint">
+      This programme is preventative and restorative care delivered under medical supervision. It is not treatment for any diagnosed condition and is not a substitute for care from your own GP or consultant. Your name, telephone number and email address are used only to contact you about this programme; we do not sell them or pass them to anyone outside META Esthetic International and KIN. Ask us to delete them and we will. © 2026 META Esthetic International Co., Ltd.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ── click-to-play: no YouTube contact, no cookie, until pressed ─── */
+  var filmBtn = document.getElementById("filmBtn");
+  if(filmBtn){
+    filmBtn.addEventListener("click", function(){
+      var f = document.createElement("iframe");
+      f.src = "https://www.youtube-nocookie.com/embed/6HyVLonEngI?autoplay=1&rel=0&modestbranding=1";
+      f.title = "Inside Kin Origin — KIN Rehabilitation & Homecare";
+      f.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share";
+      f.setAttribute("allowfullscreen", "");
+      document.getElementById("film").replaceChildren(f);
+    });
+  }
+
+  /* ── Google Apps Script Web App — writes each enquiry to the lead sheet.
+     To change it: Apps Script ▸ Manage deployments ▸ pencil ▸ New version,
+     which keeps this URL. A brand-new deployment gives a new URL.        ── */
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbxReBPKjt7NEjHhvdF-5PE_5dwybg3uD5xiIYtZChh3tzD5gvwHw8zAuo7FUuPeZvpd/exec";
+
+  /* Preview hosts (claude.ai artifacts, a local file) block outbound POSTs,
+     so the form validates and confirms there without trying to save.      */
+  var PREVIEW = location.protocol === "file:" ||
+                /(^|\.)claude\.ai$/.test(location.hostname) ||
+                location.hostname === "localhost";
+
+  var form   = document.getElementById("lead");
+  var thanks = document.getElementById("thanks");
+  var submit = document.getElementById("submit");
+
+  var UK_PHONE = /^(?:\+44|0044|0)7\d{9}$/;
+  var EMAIL    = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+  function tidyPhone(v){ return v.replace(/[\s()\-.]/g, ""); }
+
+  function fail(id, msg){
+    var input = document.getElementById(id);
+    document.getElementById("e-" + id).textContent = msg;
+    input.setAttribute("aria-invalid", "true");
+    return input;
+  }
+  function clear(id){
+    document.getElementById("e-" + id).textContent = "";
+    document.getElementById(id).removeAttribute("aria-invalid");
+  }
+
+  function validate(){
+    var bad = null;
+    ["first","last","phone","email","consent"].forEach(clear);
+
+    var first = form.first.value.trim();
+    var last  = form.last.value.trim();
+    var phone = tidyPhone(form.phone.value);
+    var email = form.email.value.trim();
+
+    if(!first) bad = bad || fail("first", "Please tell us your first name.");
+    if(!last)  bad = bad || fail("last",  "Please tell us your surname.");
+
+    if(!phone){
+      bad = bad || fail("phone", "We need a number to call you on.");
+    } else if(!UK_PHONE.test(phone)){
+      bad = bad || fail("phone", "That does not look like a UK mobile. Try 07700 900123 or +44 7700 900123.");
+    }
+
+    if(!email){
+      bad = bad || fail("email", "We need an email to send the itinerary to.");
+    } else if(!EMAIL.test(email)){
+      bad = bad || fail("email", "Check that address — something is missing.");
+    }
+
+    if(!form.consent.checked){
+      bad = bad || fail("consent", "Please tick the box so we are allowed to contact you.");
+    }
+    return bad;
+  }
+
+  form.addEventListener("submit", function(ev){
+    ev.preventDefault();
+
+    var bad = validate();
+    if(bad){ bad.focus(); bad.scrollIntoView({block:"center", behavior:"smooth"}); return; }
+
+    var payload = {
+      first:  form.first.value.trim(),
+      last:   form.last.value.trim(),
+      phone:  tidyPhone(form.phone.value),
+      email:  form.email.value.trim(),
+      when:   form.when.value,
+      party:  form.party.value,
+      room:   form.room.value,
+      page:   location.href,
+      ref:    document.referrer || "direct",
+      sentAt: new Date().toISOString()
+    };
+
+    submit.disabled = true;
+    submit.textContent = "Sending…";
+
+    function done(){
+      form.hidden = true;
+      thanks.hidden = false;
+      thanks.scrollIntoView({block:"center", behavior:"smooth"});
+    }
+
+    if(!ENDPOINT || PREVIEW){
+      console.warn("Preview mode — lead not saved:", payload);
+      done();
+      return;
+    }
+
+    // text/plain keeps this a "simple" request, so the browser skips the
+    // CORS preflight that Apps Script does not answer.
+    fetch(ENDPOINT, {
+      method: "POST",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify(payload)
+    })
+    .then(done)
+    .catch(function(){
+      fetch(ENDPOINT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {"Content-Type": "text/plain;charset=utf-8"},
+        body: JSON.stringify(payload)
+      }).then(done).catch(function(){
+        submit.disabled = false;
+        submit.textContent = "Send my details →";
+        document.getElementById("e-consent").textContent =
+          "That did not send. Please email metaaesthetictourism@gmail.com and we will pick it up.";
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
