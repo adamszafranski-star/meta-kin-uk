@@ -1,39 +1,345 @@
-<!doctype html>
-<html lang="en-GB">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Thank You | Medical Tourism Thailand</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Karla:wght@400;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<style>
-:root{--ink:#10211d;--deep:#0b1715;--mint:#dcefe6;--paper:#f7f5ef;--gold:#c8a66a;--muted:#5f6d68}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Karla,Arial,sans-serif;line-height:1.65}
-.wrap{width:min(820px,90vw);margin:auto}main{min-height:78vh;display:flex;align-items:center;padding:70px 0}
-.card{background:#fff;border:1px solid rgba(16,33,29,.14);padding:clamp(32px,6vw,70px);text-align:center;box-shadow:0 20px 60px rgba(16,33,29,.08)}
-.eyebrow{font:600 12px/1.2 "IBM Plex Mono",monospace;text-transform:uppercase;letter-spacing:.16em;color:#55776a}
-h1,h2{font-family:Fraunces,Georgia,serif;line-height:1.04;letter-spacing:-.035em}h1{font-size:clamp(44px,7vw,72px);margin:20px auto;max-width:680px}p{font-size:19px;max-width:650px;margin:18px auto}.lead{font-size:clamp(20px,2.4vw,26px)}
-.btn{display:inline-flex;margin-top:20px;padding:16px 25px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;border-radius:3px}.note{font-size:14px;color:var(--muted);margin-top:20px}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:35px 0}.step{padding:18px;background:var(--mint);font-size:14px}.step b{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;margin-bottom:5px}
-footer{background:var(--deep);color:#d8e5df;padding:30px 0;text-align:center}footer p{font-size:13px;color:#a9b9b2}
-@media(max-width:650px){.steps{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Book your free medical tourism consultation in Thailand.">
+  <title>Your Consultation | Medical Tourism Thailand</title>
+
+  <style>
+    :root{
+      --bg:#0b0b0b;
+      --panel:#111;
+      --text:#f4f1ea;
+      --muted:#aaa59c;
+      --gold:#c9a96e;
+      --line:rgba(255,255,255,.12);
+      --max:1080px;
+    }
+
+    *{box-sizing:border-box}
+
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial, Helvetica, sans-serif;
+      line-height:1.6;
+    }
+
+    .wrap{
+      width:min(var(--max), calc(100% - 40px));
+      margin:0 auto;
+    }
+
+    header{
+      border-bottom:1px solid var(--line);
+      padding:22px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .logo{
+      color:var(--text);
+      text-decoration:none;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:20px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .tag{
+      color:var(--muted);
+      font-size:12px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    main{
+      padding:76px 0 90px;
+    }
+
+    .intro{
+      max-width:760px;
+      margin:0 auto 48px;
+      text-align:center;
+    }
+
+    .eyebrow{
+      color:var(--gold);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+    }
+
+    h1,h2{
+      font-family:Georgia, "Times New Roman", serif;
+      font-weight:400;
+      line-height:1.15;
+    }
+
+    h1{
+      font-size:clamp(38px, 6vw, 64px);
+      margin:0 0 24px;
+    }
+
+    .intro p{
+      margin:0;
+      color:#d0cbc1;
+      font-size:18px;
+    }
+
+    .hospitality{
+      max-width:760px;
+      margin:0 auto 44px;
+      padding:34px 0;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+
+    h2{
+      font-size:clamp(28px, 4vw, 40px);
+      margin:0 0 16px;
+    }
+
+    .hospitality p{
+      margin:0;
+      color:#c9c4bb;
+      font-size:17px;
+    }
+
+    .booking{
+      max-width:960px;
+      margin:0 auto;
+    }
+
+    .booking-heading{
+      text-align:center;
+      margin-bottom:24px;
+    }
+
+    .booking-heading h2{
+      margin-bottom:12px;
+    }
+
+    .booking-heading p{
+      margin:0;
+      color:#c9c4bb;
+      font-size:16px;
+    }
+
+    .next-step{
+      max-width:760px;
+      margin:0 auto 28px;
+      text-align:center;
+      color:#e4dfd5;
+      font-size:15px;
+    }
+
+    #cal-embed{
+      min-height:720px;
+      width:100%;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:2px;
+      overflow:hidden;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:52px 0 58px;
+      color:#a9a49b;
+    }
+
+    .footer-inner{
+      max-width:760px;
+    }
+
+    .footer-company{
+      color:#f0ece4;
+      font-family:Georgia, "Times New Roman", serif;
+      font-size:21px;
+      margin-bottom:14px;
+    }
+
+    footer p{
+      margin:7px 0;
+      font-size:14px;
+    }
+
+    footer a{
+      color:#c9a96e;
+      text-decoration:none;
+    }
+
+    footer a:hover{
+      text-decoration:underline;
+    }
+
+    .legal{
+      margin-top:22px !important;
+      color:#88847c;
+      font-size:12px !important;
+      line-height:1.7;
+    }
+
+    @media (max-width:700px){
+      .wrap{
+        width:min(var(--max), calc(100% - 28px));
+      }
+
+      header{
+        padding:18px 0;
+      }
+
+      .brand{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:7px;
+      }
+
+      main{
+        padding:54px 0 64px;
+      }
+
+      .intro{
+        margin-bottom:36px;
+      }
+
+      .hospitality{
+        padding:28px 0;
+        margin-bottom:34px;
+      }
+
+      #cal-embed{
+        min-height:760px;
+      }
+
+      footer{
+        padding:42px 0 48px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<main><div class="wrap"><div class="card">
-<p class="eyebrow">Thank you — your enquiry has been received</p>
-<h1>Your next step is a conversation.</h1>
-<p class="lead">We have your details. If you provided a phone number and gave permission for contact, our team can contact you automatically to help you take the next step.</p>
-<div class="steps">
-<div class="step"><b>01</b>Your enquiry received</div>
-<div class="step"><b>02</b>Choose a convenient video-call time</div>
-<div class="step"><b>03</b>Discuss your needs and suitable options</div>
-</div>
-<p>For the most useful next step, choose a free 30-minute video consultation. We can discuss your health goals, the Comprehensive Executive Health Assessment, and whether optional diagnostics such as colonoscopy or spinal MRI may be relevant to you.</p>
-<a class="btn" href="https://cal.com/adam-szafranski-momentum-marketing/free-medical-tourism-consultation">Choose my video consultation time →</a>
-<p class="note">No payment is taken when you book the consultation. Clinical suitability, availability and final pricing are confirmed separately.</p>
-</div></div></main>
-<footer><div class="wrap"><p>META Esthetic International Co., Ltd · Working with KIN, Bangkok, Thailand</p></div></footer>
+
+  <header>
+    <div class="wrap brand">
+      <a class="logo" href="/">META Wellness Tourism</a>
+      <div class="tag">Thailand · Medical Tourism</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <section class="intro">
+        <div class="eyebrow">Your enquiry has been received</div>
+        <h1>Thank you.</h1>
+        <p>
+          Your details have been received successfully. The next step is a short,
+          free consultation so we can understand what you are looking for and answer
+          your questions about medical care and wellness in Thailand.
+        </p>
+      </section>
+
+      <section class="hospitality">
+        <h2>A little Thai hospitality</h2>
+        <p>
+          Think of this as a friendly conversation rather than a sales call.
+          We will listen, answer your questions and give you the information you need
+          to decide what — if anything — feels right for you.
+        </p>
+      </section>
+
+      <section class="booking">
+        <div class="booking-heading">
+          <h2>And now book your free consultation</h2>
+          <p>
+            Choose a time that suits you. The conversation is entirely informational
+            and focused on your wellbeing.
+          </p>
+        </div>
+
+        <p class="next-step">
+          This consultation is the next step in your enquiry. Choose a convenient
+          time below and we’ll take it from there.
+        </p>
+
+        <div id="cal-embed"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-company">META Esthetic International Co., Ltd</div>
+
+      <p>
+        In partnership with KIN — Kin Origin Rehab Center, Sukhumvit 107, Bangkok.
+      </p>
+
+      <p>
+        Telephone +66 2 087 2785 ·
+        <a href="mailto:metaaesthetictourism@gmail.com">
+          metaaesthetictourism@gmail.com
+        </a>
+      </p>
+
+      <p class="legal">
+        This consultation is informational and does not constitute medical advice,
+        diagnosis or treatment. The programme is preventative and restorative care
+        delivered under medical supervision and is not a substitute for care from
+        your own GP or consultant. © 2026 META Esthetic International Co., Ltd.
+      </p>
+    </div>
+  </footer>
+
+  <script type="text/javascript">
+    (function (C, A, L) {
+      let p = function (a, ar) {
+        a.q = [];
+        a.call = function () {
+          a.q.push(arguments);
+        };
+      };
+
+      let d = C.document;
+      C.Cal = C.Cal || p;
+      C.Cal.loaded = true;
+
+      C.Cal.q = C.Cal.q || [];
+
+      C.Cal("init", {
+        origin: "https://cal.com"
+      });
+
+      C.Cal("inline", {
+        elementOrSelector: "#cal-embed",
+        calLink: "adam-szafranski-momentum-marketing/free-medical-tourism-consultation",
+        config: {
+          layout: "month_view"
+        }
+      });
+
+      let s = d.createElement(A);
+      s.src = L;
+      s.async = true;
+      d.head.appendChild(s);
+    })(window, "script", "https://app.cal.com/embed/embed.js");
+  </script>
+
 </body>
 </html>
