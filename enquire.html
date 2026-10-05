@@ -165,7 +165,7 @@
 
         <label class="consent" for="consent">
           <input id="consent" name="consent" type="checkbox" required>
-          <span>I agree to META Esthetic International contacting me by telephone and email about this programme. I can ask you to stop at any time. <a href="index.html#privacy">How my details are used</a>.</span>
+          <span>I agree to META Esthetic International contacting me by telephone and email about this programme, including an automatic phone call where available. I can ask you to stop at any time. <a href="index.html#privacy">How my details are used</a>.</span>
         </label>
         <p class="err" id="e-consent" role="alert" style="margin:-12px 0 16px"></p>
 
@@ -175,7 +175,7 @@
 
       <div class="thanks" id="thanks" hidden>
         <h3>Got it — thank you.</h3>
-        <p>Someone will telephone you on the number you gave, in your morning. The written itinerary is on its way to your inbox.</p>
+        <p>Your details have been received. The next step is a short video consultation so we can understand your needs and discuss the most suitable medical tourism options for you.</p>
         <p class="src">If nothing arrives within two working days, email <a href="mailto:metaaesthetictourism@gmail.com">metaaesthetictourism@gmail.com</a> and we will find it.</p>
         <a class="btn btn-quiet" href="index.html" style="margin-top:8px">Back to the programme</a>
       </div>
@@ -317,6 +317,7 @@
       when:   form.when.value,
       party:  form.party.value,
       room:   form.room.value,
+      automaticPhoneContact: form.consent.checked ? "yes" : "no",
       page:   location.href,
       ref:    document.referrer || "direct",
       sentAt: new Date().toISOString()
@@ -326,9 +327,7 @@
     submit.textContent = "Sending…";
 
     function done(){
-      form.hidden = true;
-      thanks.hidden = false;
-      thanks.scrollIntoView({block:"center", behavior:"smooth"});
+      window.location.href = "thank-you.html";
     }
 
     if(!ENDPOINT || PREVIEW){
