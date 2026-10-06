@@ -230,31 +230,6 @@
       }
     }
   </style>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-
-fbq('init', '4638696046454900');
-fbq('track', 'PageView');
-</script>
-<noscript>
-<img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/>
-</noscript>
-<!-- End Meta Pixel Code -->
-<script>
-if (sessionStorage.getItem("mwt_lead_submitted") === "1") {
-  fbq("track", "Lead");
-  sessionStorage.removeItem("mwt_lead_submitted");
-}
-</script>
 </head>
 
 <body>
@@ -270,39 +245,50 @@ if (sessionStorage.getItem("mwt_lead_submitted") === "1") {
     <div class="wrap">
 
       <section class="intro">
-        <div class="eyebrow">Your enquiry has been received</div>
-        <h1>Thank you.</h1>
+        <div class="eyebrow">Your next step</div>
+        <h1>We are not set yet.</h1>
         <p>
-          Your details have been received successfully. The next step is a short,
-          free consultation so we can understand what you are looking for and answer
-          your questions about medical care and wellness in Thailand.
+          Before we can understand which medical tourism options may be right for you,
+          we would like to have a short conversation. Choose a convenient time for a
+          free consultation below.
         </p>
       </section>
 
       <section class="hospitality">
-        <h2>A little Thai hospitality</h2>
+        <h2>Let’s find the right next step.</h2>
         <p>
-          Think of this as a friendly conversation rather than a sales call.
-          We will listen, answer your questions and give you the information you need
-          to decide what — if anything — feels right for you.
+          This is a friendly conversation, not a commitment. We will listen to what
+          you are looking for, answer your questions and explain which options may be
+          worth considering before you make any travel or medical decisions.
         </p>
       </section>
 
       <section class="booking">
         <div class="booking-heading">
-          <h2>And now book your free consultation</h2>
+          <h2>Book your free consultation</h2>
           <p>
-            Choose a time that suits you. The conversation is entirely informational
-            and focused on your wellbeing.
+            Choose a convenient time and speak with us before making any travel or
+            medical decisions.
           </p>
         </div>
 
-        <p class="next-step">
-          This consultation is the next step in your enquiry. Choose a convenient
-          time below and we’ll take it from there.
-        </p>
+        <!-- Cal inline embed code begins -->
+        <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-free-medical-tourism-consultation"></div>
+        <script type="text/javascript">
+          (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+          Cal("init", "free-medical-tourism-consultation", {origin:"https://app.cal.com"});
+          Cal.config = Cal.config || {};
+          Cal.config.forwardQueryParams = true;
 
-        <div id="cal-embed"></div>
+          Cal.ns["free-medical-tourism-consultation"]("inline", {
+            elementOrSelector:"#my-cal-inline-free-medical-tourism-consultation",
+            config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+            calLink: "adam-szafranski-momentum-marketing/free-medical-tourism-consultation",
+          });
+
+          Cal.ns["free-medical-tourism-consultation"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+        </script>
+        <!-- Cal inline embed code ends -->
       </section>
 
     </div>
@@ -332,33 +318,38 @@ if (sessionStorage.getItem("mwt_lead_submitted") === "1") {
     </div>
   </footer>
 
-  <script src="https://cal.com/embed.js"></script>
-  <script>
-    Cal("init", {origin: "https://cal.com"});
+  <script type="text/javascript">
+    (function (C, A, L) {
+      let p = function (a, ar) {
+        a.q = [];
+        a.call = function () {
+          a.q.push(arguments);
+        };
+      };
 
-    /*
-      Track a real Cal.com booking, not merely a calendar view/click.
-      Cal.com's bookingSuccessfulV2 fires after the booking is successfully
-      created. We do not send the attendee's name, email, phone or health
-      information to Meta.
-    */
-    Cal("on", {
-      action: "bookingSuccessfulV2",
-      callback: function () {
-        if (sessionStorage.getItem("mwt_schedule_tracked") !== "1") {
-          fbq("track", "Schedule");
-          sessionStorage.setItem("mwt_schedule_tracked", "1");
+      let d = C.document;
+      C.Cal = C.Cal || p;
+      C.Cal.loaded = true;
+
+      C.Cal.q = C.Cal.q || [];
+
+      C.Cal("init", {
+        origin: "https://cal.com"
+      });
+
+      C.Cal("inline", {
+        elementOrSelector: "#cal-embed",
+        calLink: "adam-szafranski-momentum-marketing/free-medical-tourism-consultation",
+        config: {
+          layout: "month_view"
         }
-      }
-    });
+      });
 
-    Cal("inline", {
-      elementOrSelector: "#cal-embed",
-      calLink: "adam-szafranski-momentum-marketing/free-medical-tourism-consultation",
-      config: {
-        layout: "month_view"
-      }
-    });
+      let s = d.createElement(A);
+      s.src = L;
+      s.async = true;
+      d.head.appendChild(s);
+    })(window, "script", "https://app.cal.com/embed/embed.js");
   </script>
 
 </body>
