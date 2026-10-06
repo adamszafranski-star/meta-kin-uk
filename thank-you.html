@@ -230,6 +230,31 @@
       }
     }
   </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '4638696046454900');
+fbq('track', 'PageView');
+</script>
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+<script>
+if (sessionStorage.getItem("mwt_lead_submitted") === "1") {
+  fbq("track", "Lead");
+  sessionStorage.removeItem("mwt_lead_submitted");
+}
+</script>
 </head>
 
 <body>
@@ -307,38 +332,33 @@
     </div>
   </footer>
 
-  <script type="text/javascript">
-    (function (C, A, L) {
-      let p = function (a, ar) {
-        a.q = [];
-        a.call = function () {
-          a.q.push(arguments);
-        };
-      };
+  <script src="https://cal.com/embed.js"></script>
+  <script>
+    Cal("init", {origin: "https://cal.com"});
 
-      let d = C.document;
-      C.Cal = C.Cal || p;
-      C.Cal.loaded = true;
-
-      C.Cal.q = C.Cal.q || [];
-
-      C.Cal("init", {
-        origin: "https://cal.com"
-      });
-
-      C.Cal("inline", {
-        elementOrSelector: "#cal-embed",
-        calLink: "adam-szafranski-momentum-marketing/free-medical-tourism-consultation",
-        config: {
-          layout: "month_view"
+    /*
+      Track a real Cal.com booking, not merely a calendar view/click.
+      Cal.com's bookingSuccessfulV2 fires after the booking is successfully
+      created. We do not send the attendee's name, email, phone or health
+      information to Meta.
+    */
+    Cal("on", {
+      action: "bookingSuccessfulV2",
+      callback: function () {
+        if (sessionStorage.getItem("mwt_schedule_tracked") !== "1") {
+          fbq("track", "Schedule");
+          sessionStorage.setItem("mwt_schedule_tracked", "1");
         }
-      });
+      }
+    });
 
-      let s = d.createElement(A);
-      s.src = L;
-      s.async = true;
-      d.head.appendChild(s);
-    })(window, "script", "https://app.cal.com/embed/embed.js");
+    Cal("inline", {
+      elementOrSelector: "#cal-embed",
+      calLink: "adam-szafranski-momentum-marketing/free-medical-tourism-consultation",
+      config: {
+        layout: "month_view"
+      }
+    });
   </script>
 
 </body>
