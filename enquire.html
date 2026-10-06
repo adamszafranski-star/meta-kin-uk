@@ -80,25 +80,6 @@
     text-transform:uppercase;color:#cfe6e5;
   }
 </style>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-
-fbq('init', '4638696046454900');
-fbq('track', 'PageView');
-</script>
-<noscript>
-<img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/>
-</noscript>
-<!-- End Meta Pixel Code -->
 </head>
 <body class="calm">
 
@@ -192,12 +173,7 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/>
         <p class="formnote">No deposit. No obligation. One telephone call, at a UK-friendly hour.</p>
       </form>
 
-      <div class="thanks" id="thanks" hidden>
-        <h3>Got it — thank you.</h3>
-        <p>Your details have been received. The next step is a short video consultation so we can understand your needs and discuss the most suitable medical tourism options for you.</p>
-        <p class="src">If nothing arrives within two working days, email <a href="mailto:metaaesthetictourism@gmail.com">metaaesthetictourism@gmail.com</a> and we will find it.</p>
-        <a class="btn btn-quiet" href="index.html" style="margin-top:8px">Back to the programme</a>
-      </div>
+
     </div>
 
     <ul class="reassure">
@@ -346,7 +322,6 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/>
     submit.textContent = "Sending…";
 
     function done(){
-      sessionStorage.setItem("mwt_lead_submitted", "1");
       window.location.href = "thank-you.html";
     }
 
