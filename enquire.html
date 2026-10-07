@@ -338,14 +338,9 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
     submit.textContent = "Sending…";
 
     function done(){
-      // Standard Meta Pixel Lead event: fires after the form submission
-      // reaches this point, not on a simple button click.
-      if (typeof fbq === "function" &&
-          sessionStorage.getItem("mwt_lead_tracked") !== "1") {
-        fbq("track", "Lead");
-        sessionStorage.setItem("mwt_lead_tracked", "1");
-      }
-
+      // Mark a successful form submission. The Lead event itself is fired
+      // on thank-you.html after the redirect.
+      sessionStorage.setItem("mwt_lead_submitted", "1");
       window.location.href = "thank-you.html";
     }
 
