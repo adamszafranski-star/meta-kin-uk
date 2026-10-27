@@ -62,6 +62,11 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
   .steps li::after{content:"";width:16px;height:1px;background:var(--gold-pale)}
   .steps li:last-child::after{display:none}
   .steps li.now{color:var(--gold);font-weight:600}
+  .title-option{position:relative;cursor:pointer}
+  .title-option input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer}
+  .title-option span{display:inline-flex;align-items:center;justify-content:center;min-width:58px;min-height:44px;padding:8px 16px;border:1px solid var(--line);border-radius:999px;background:var(--ground);color:var(--ink);font-weight:600;transition:background .15s,border-color .15s}
+  .title-option input:checked+span{background:var(--teal);border-color:var(--teal);color:#fff}
+  .title-option input:focus-visible+span{outline:2px solid var(--gold);outline-offset:3px}
 
   /* ── click-to-play film ───────────────────────────────────────────
      A facade, not a live embed: YouTube is not contacted and no cookie
@@ -117,7 +122,7 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
     <div class="intro">
       <p class="eyebrow">Step two of three</p>
       <h1 style="font-size:clamp(1.9rem,6.4vw,2.7rem)">Ask for the itinerary.</h1>
-      <p class="lede" style="max-width:34em">Four details. Then a person telephones you, in your own morning, and talks you through the five days. Nothing is booked on that call and no deposit is taken.</p>
+      <p class="lede" style="max-width:34em">More than a million British visitors come to Thailand each year. Make your own trip count: discover a five-day wellbeing programme and get clear answers in a free video consultation, at a time that suits you. No booking or deposit required.</p>
       <ul class="steps">
         <li class="now">Your details</li>
         <li>A phone call</li>
@@ -127,6 +132,16 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
 
     <div class="formcard">
       <form id="lead" novalidate>
+        <fieldset class="title-choice" style="border:0;padding:0;margin:0 0 24px">
+          <legend style="font-weight:700;margin-bottom:12px">First, tell us a little about yourself:</legend>
+          <div class="title-options" role="group" aria-label="Choose a title" style="display:flex;gap:10px;flex-wrap:wrap">
+            <label class="title-option"><input type="checkbox" name="title-choice" value="Mr"><span>Mr</span></label>
+            <label class="title-option"><input type="checkbox" name="title-choice" value="Mrs"><span>Mrs</span></label>
+            <label class="title-option"><input type="checkbox" name="title-choice" value="Ms"><span>Ms</span></label>
+            <label class="title-option"><input type="checkbox" name="title-choice" value="Miss"><span>Miss</span></label>
+          </div>
+          <p class="hint" style="margin-top:10px">Just a first step — you can continue without selecting one.</p>
+        </fieldset>
         <div class="field">
           <label for="first">First name</label>
           <input id="first" name="first" type="text" autocomplete="given-name" required>
@@ -150,43 +165,14 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
 
         <hr class="rule" style="margin:26px 0 22px">
 
-        <div class="field">
-          <label for="when">Roughly when were you thinking?<span class="hint">Optional</span></label>
-          <select id="when" name="when">
-            <option value="">Not sure yet</option>
-            <option>Within 3 months</option>
-            <option>3–6 months</option>
-            <option>6–12 months</option>
-            <option>Just researching for now</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="party">Travelling alone or with someone?<span class="hint">Optional</span></label>
-          <select id="party" name="party">
-            <option value="">Not decided</option>
-            <option>On my own</option>
-            <option>With my partner — they are not doing the programme</option>
-            <option>With my partner — quote for two programmes</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="room">Would you like us to book your hotel?<span class="hint">Optional. At cost, no commission added.</span></label>
-          <select id="room" name="room">
-            <option value="">No thanks, I'll sort my own</option>
-            <option>Yes — mid-range, around £70–£120 a night</option>
-            <option>Yes — five-star</option>
-            <option>Tell me the options first</option>
-          </select>
-        </div>
-
         <label class="consent" for="consent">
           <input id="consent" name="consent" type="checkbox" required>
           <span>I agree to META Esthetic International contacting me by telephone and email about this programme, including an automatic phone call where available. I can ask you to stop at any time. <a href="index.html#privacy">How my details are used</a>.</span>
         </label>
         <p class="err" id="e-consent" role="alert" style="margin:-12px 0 16px"></p>
 
-        <button class="btn" type="submit" id="submit">Send my details &rarr;</button>
-        <p class="formnote">No deposit. No obligation. One telephone call, at a UK-friendly hour.</p>
+        <button class="btn" type="submit" id="submit">Send</button>
+        <p class="formnote">Free video consultation. No deposit, no obligation.</p>
       </form>
 
 
@@ -268,6 +254,19 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
   var thanks = document.getElementById("thanks");
   var submit = document.getElementById("submit");
 
+  // Title chips are only a low-friction visual first step; they are not
+  // validated, saved, or included in the lead payload.
+  var titleChoices = document.querySelectorAll('input[name="title-choice"]');
+  titleChoices.forEach(function(choice){
+    choice.addEventListener("change", function(){
+      if(choice.checked){
+        titleChoices.forEach(function(other){
+          if(other !== choice) other.checked = false;
+        });
+      }
+    });
+  });
+
   var UK_PHONE = /^(?:\+44|0044|0)7\d{9}$/;
   var EMAIL    = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -325,9 +324,9 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
       last:   form.last.value.trim(),
       phone:  tidyPhone(form.phone.value),
       email:  form.email.value.trim(),
-      when:   form.when.value,
-      party:  form.party.value,
-      room:   form.room.value,
+      when:   "",
+      party:  "",
+      room:   "",
       automaticPhoneContact: form.consent.checked ? "yes" : "no",
       page:   location.href,
       ref:    document.referrer || "direct",
@@ -366,7 +365,7 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
         body: JSON.stringify(payload)
       }).then(done).catch(function(){
         submit.disabled = false;
-        submit.textContent = "Send my details →";
+        submit.textContent = "Send";
         document.getElementById("e-consent").textContent =
           "That did not send. Please email metaaesthetictourism@gmail.com and we will pick it up.";
       });
