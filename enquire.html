@@ -165,11 +165,11 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
 
         <hr class="rule" style="margin:26px 0 22px">
 
-        <label class="consent" for="consent">
-          <input id="consent" name="consent" type="checkbox" required>
-          <span>I agree to META Esthetic International contacting me by telephone and email about this programme, including an automatic phone call where available. I can ask you to stop at any time. <a href="index.html#privacy">How my details are used</a>.</span>
-        </label>
-        <p class="err" id="e-consent" role="alert" style="margin:-12px 0 16px"></p>
+        <p class="formnote" style="margin:0 0 18px">
+          By clicking Send, you agree to be contacted in accordance with our
+          <a href="privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+          Your data will not be shared with anyone.
+        </p>
 
         <button class="btn" type="submit" id="submit">Send</button>
         <p class="formnote">Free video consultation. No deposit, no obligation.</p>
@@ -243,6 +243,7 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
      To change it: Apps Script ▸ Manage deployments ▸ pencil ▸ New version,
      which keeps this URL. A brand-new deployment gives a new URL.        ── */
   var ENDPOINT = "https://script.google.com/macros/s/AKfycbxReBPKjt7NEjHhvdF-5PE_5dwybg3uD5xiIYtZChh3tzD5gvwHw8zAuo7FUuPeZvpd/exec";
+  var MAKE_WEBHOOK = "https://hook.eu1.make.com/356q5b8slsyng7dsrog289y8dnpebhgy";
 
   /* Preview hosts (claude.ai artifacts, a local file) block outbound POSTs,
      so the form validates and confirms there without trying to save.      */
@@ -285,7 +286,7 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
 
   function validate(){
     var bad = null;
-    ["first","last","phone","email","consent"].forEach(clear);
+    ["first","last","phone","email"].forEach(clear);
 
     var first = form.first.value.trim();
     var last  = form.last.value.trim();
@@ -307,9 +308,6 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
       bad = bad || fail("email", "Check that address — something is missing.");
     }
 
-    if(!form.consent.checked){
-      bad = bad || fail("consent", "Please tick the box so we are allowed to contact you.");
-    }
     return bad;
   }
 
@@ -327,7 +325,7 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
       when:   "",
       party:  "",
       room:   "",
-      automaticPhoneContact: form.consent.checked ? "yes" : "no",
+      automaticPhoneContact: "yes",
       page:   location.href,
       ref:    document.referrer || "direct",
       sentAt: new Date().toISOString()
@@ -349,26 +347,44 @@ src="https://www.facebook.com/tr?id=4638696046454900&ev=PageView&noscript=1"/></
       return;
     }
 
-    // text/plain keeps this a "simple" request, so the browser skips the
-    // CORS preflight that Apps Script does not answer.
+    // Send only the four lead fields to Make. Existing Google Sheets
+    // Apps Script submission is retained.
+    var makePayload = {
+      first: payload.first,
+      last: payload.last,
+      phone: payload.phone,
+      email: payload.email
+    };
+    var makeRequest = fetch(MAKE_WEBHOOK, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify(makePayload)
+    });
+
+    // Existing Google Apps Script submission.
     fetch(ENDPOINT, {
       method: "POST",
       headers: {"Content-Type": "text/plain;charset=utf-8"},
       body: JSON.stringify(payload)
     })
-    .then(done)
     .catch(function(){
-      fetch(ENDPOINT, {
+      return fetch(ENDPOINT, {
         method: "POST",
         mode: "no-cors",
         headers: {"Content-Type": "text/plain;charset=utf-8"},
         body: JSON.stringify(payload)
-      }).then(done).catch(function(){
-        submit.disabled = false;
-        submit.textContent = "Send";
-        document.getElementById("e-consent").textContent =
-          "That did not send. Please email metaaesthetictourism@gmail.com and we will pick it up.";
       });
+    })
+    .then(function(){
+      return makeRequest;
+    })
+    .then(done)
+    .catch(function(){
+      submit.disabled = false;
+      submit.textContent = "Send";
+      document.getElementById("e-email").textContent =
+        "That did not send. Please email metaaesthetictourism@gmail.com and we will pick it up.";
     });
   });
 })();
